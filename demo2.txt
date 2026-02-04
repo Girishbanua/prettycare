@@ -1,0 +1,221 @@
+Perfect use-case for a college website 👍
+Let’s design this **cleanly, scalable, and professional**, the way real college portals do it.
+
+---
+
+# 🎓 Course Details Page (with PDF / Details View)
+
+### 🎯 Goal
+
+* Landing page shows **courses**
+* Clicking a course opens **another page**
+* That page shows:
+
+  * Course details **OR**
+  * Embedded **PDF syllabus**
+
+We’ll use:
+**HTML + CSS + PHP + MySQL**
+
+---
+
+## 1️⃣ Database Design (Recommended)
+
+### `courses` table
+
+```sql
+CREATE TABLE courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(100),
+    description TEXT,
+    pdf_file VARCHAR(255)
+);
+```
+
+📌 Example data:
+
+```sql
+INSERT INTO courses (course_name, description, pdf_file)
+VALUES 
+('BCA', 'Bachelor of Computer Applications', 'bca.pdf'),
+('BBA', 'Bachelor of Business Administration', 'bba.pdf');
+```
+
+📂 Store PDFs in:
+
+```
+/uploads/courses/
+```
+
+---
+
+## 2️⃣ Landing Page – Courses List (`courses.php`)
+
+```php
+<?php
+include "db.php";
+$courses = $conn->query("SELECT * FROM courses");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Courses</title>
+    <style>
+        body { font-family: Arial; background: #f4f6f8; }
+        .container { width: 80%; margin: auto; }
+        .course {
+            background: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        a {
+            text-decoration: none;
+            background: #0056b3;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Courses Offered</h1>
+
+    <?php while($row = $courses->fetch_assoc()) { ?>
+        <div class="course">
+            <h3><?= $row['course_name'] ?></h3>
+            <a href="course_details.php?id=<?= $row['id'] ?>">
+                View Details
+            </a>
+        </div>
+    <?php } ?>
+</div>
+
+</body>
+</html>
+```
+
+---
+
+## 3️⃣ Course Details Page (`course_details.php`)
+
+This page opens when **any course is clicked**.
+
+```php
+<?php
+include "db.php";
+
+if (!isset($_GET['id'])) {
+    die("Course not found");
+}
+
+$id = intval($_GET['id']);
+$result = $conn->query("SELECT * FROM courses WHERE id = $id");
+
+if ($result->num_rows == 0) {
+    die("Invalid course");
+}
+
+$course = $result->fetch_assoc();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?= $course['course_name'] ?></title>
+    <style>
+        body { font-family: Arial; background: #f4f6f8; }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><?= $course['course_name'] ?></h1>
+    <p><?= $course['description'] ?></p>
+
+    <h3>Course Syllabus</h3>
+    <iframe src="uploads/courses/<?= $course['pdf_file'] ?>"></iframe>
+</div>
+
+</body>
+</html>
+```
+
+---
+
+## 4️⃣ Folder Structure 📁
+
+```
+college-website/
+│
+├── db.php
+├── courses.php
+├── course_details.php
+│
+├── uploads/
+│   └── courses/
+│       ├── bca.pdf
+│       └── bba.pdf
+```
+
+---
+
+## 5️⃣ Alternative Options (Your Choice)
+
+### ✅ Option A: Only PDF opens
+
+```html
+<a href="uploads/courses/bca.pdf" target="_blank">View PDF</a>
+```
+
+### ✅ Option B: Tabs (Details | PDF)
+
+* Course Overview
+* Eligibility
+* Duration
+* Fees
+* Syllabus (PDF)
+
+### ✅ Option C: One page, modal popup
+
+* Click → Modal → Embedded PDF
+
+---
+
+## 6️⃣ Best Practices for College Website 🏫
+
+✔ Clean URLs
+✔ PDF embed + download button
+✔ Breadcrumb navigation
+✔ Mobile responsive
+✔ SEO-friendly course pages
+
+---
+
+## 🔥 Want Next?
+
+I can help you:
+
+* Build **Admin panel** to upload courses & PDFs
+* Create **modern UI (Bootstrap / Tailwind)**
+* Add **search & filter courses**
+* Make **student/faculty dashboard integration**
+
+Just tell me what you want next 👌
