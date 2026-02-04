@@ -82,8 +82,8 @@ if (isset($_GET['edit'])) {
             <li class="dropdown">
                 <a href="#">Products</a>
                 <ul class="dropdown-menu">
-                    <li><a href="insert_product.php">Insert Products</a></li>
-                    <li><a href="view_products.php">View Products</a></li>
+                    <li><a href="admin.php?insert_product">Insert Products</a></li>
+                    <li><a href="admin.php?view_products">View Products</a></li>
                 </ul>
             </li>
 
@@ -106,7 +106,12 @@ if (isset($_GET['edit'])) {
         </ul>
     </nav>
 
-
+    <?php
+    if (isset($_GET['insert_product'])) {
+        include('insert_product.php');
+        include('all_products.php');
+    }
+    ?>
 
     <hr>
 
