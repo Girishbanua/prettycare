@@ -80,22 +80,22 @@ if (isset($_GET['edit'])) {
 
         <ul class="nav-links">
             <li class="dropdown">
-                <a href="#">Products</a>
+                <a href="">Products</a>
                 <ul class="dropdown-menu">
                     <li><a href="admin.php?insert_product">Insert Products</a></li>
                     <li><a href="admin.php?view_products">View Products</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown"><a href="categories.php">Categories</a>
+            <li class="dropdown"><a href="">Categories</a>
                 <ul class="dropdown-menu">
-                    <li><a href="insert_product.php">Insert Categories</a></li>
+                    <li><a href="admin.php?insert_categories">Insert Categories</a></li>
                     <li><a href="view_products.php">View Categories</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a href="brands.php">Brands</a>
+            <li class="dropdown"><a href="">Brands</a>
                 <ul class="dropdown-menu">
-                    <li><a href="insert_product.php">Insert Brands</a></li>
+                    <li><a href="admin.php?insert_brands">Insert Brands</a></li>
                     <li><a href="view_products.php">View Brands</a></li>
                 </ul>
             </li>
@@ -110,6 +110,12 @@ if (isset($_GET['edit'])) {
     if (isset($_GET['insert_product'])) {
         include('insert_product.php');
         include('all_products.php');
+    }
+    if (isset($_GET['insert_brands'])) {
+        include('insert_brands.php');
+    }
+    if (isset($_GET['insert_categories'])) {
+        include('insert_categories.php');
     }
     ?>
 

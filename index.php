@@ -10,6 +10,7 @@
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
   <title>Ecommerce</title>
   <link rel="stylesheet" href="./assets/css/index.css" />
+  <link rel="stylesheet" href="./assets/css/categories.css">
 </head>
 
 <body>
@@ -46,6 +47,7 @@
         <a href="pages/products.php" class="btn">Browse Products</a>
       </div>
     </div>
+    <?php include "./pages/categories.php" ?>
     <section class="latest">
       <h1>Latest Releases</h1>
     </section>

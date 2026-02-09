@@ -107,7 +107,7 @@ if (!$product) {
             <br>
 
             <form action="../user/add_to_cart.php" method="post">
-                <input type="hidden" name="product_id" value="<? $product['productID']; ?>">
+                <input type="hidden" name="product_id" value="<?= $product['productID']; ?>">
                 <button type="submit">Add to Cart</button>
             </form>
         </div>
