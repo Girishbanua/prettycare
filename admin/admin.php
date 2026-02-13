@@ -10,24 +10,20 @@ if (isset($_POST['save'])) {
 
     $imgName = $_FILES['productImg']['name'];
     $tmpName = $_FILES['productImg']['tmp_name'];
-
-    $imgPath = "";
-
-    if ($imgName != "") {
-        $imgPath = "./images/" . $imgName;
-        move_uploaded_file($tmpName, $imgPath);
-    }
+    $imgPath = "../images/products/" . $imgName;
+    move_uploaded_file($tmpName, $imgPath);
 
     if ($_POST['id'] == "") {
         // INSERT
         $sql = "INSERT INTO products 
         (productname, productRate, productRatings, productImg, productDesc)
         VALUES 
-        ('$name', '$price', '$rating', '$imgPath', '$description')";
+        ('$name', '$price', '$rating', '$imgName', '$description')";
     } else {
         // UPDATE
         $id = $_POST['id'];
-        $imgQuery = $imgName != "" ? ", productImg='$imgPath'" : "";
+        $imgQuery = $imgName != "" ? ", productImg='$imgName'" : "";
+
 
         $sql = "UPDATE products SET
             productname='$name',
@@ -53,7 +49,7 @@ if (isset($_GET['delete'])) {
 /* EDIT */
 $editData = null;
 if (isset($_GET['edit'])) {
-    $id = $_GET['edit'];
+    $id = (int)$_GET['edit'];
     $res = mysqli_query($conn, "SELECT * FROM products WHERE productID=$id");
 
     if (!$res) {
@@ -70,6 +66,7 @@ if (isset($_GET['edit'])) {
 <head>
     <title>Admin Panel</title>
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="./stile.css">
 </head>
 
 <body>
@@ -90,7 +87,7 @@ if (isset($_GET['edit'])) {
             <li class="dropdown"><a href="">Categories</a>
                 <ul class="dropdown-menu">
                     <li><a href="admin.php?insert_categories">Insert Categories</a></li>
-                    <li><a href="view_products.php">View Categories</a></li>
+                    <li><a href="admin.php?view_products.php">View Categories</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a href="">Brands</a>
@@ -101,7 +98,7 @@ if (isset($_GET['edit'])) {
             </li>
             <li><a href="orders.php">All Orders</a></li>
             <li><a href="payments.php">All Payments</a></li>
-            <li><a href="users.php">List Users</a></li>
+            <li><a href="admin.php?users">List Users</a></li>
             <li><a href="logout.php" class="logout">Logout</a></li>
         </ul>
     </nav>
@@ -111,11 +108,18 @@ if (isset($_GET['edit'])) {
         include('insert_product.php');
         include('all_products.php');
     }
+    if (isset($_GET['view_products'])) {
+        include('all_products.php');
+    }
     if (isset($_GET['insert_brands'])) {
         include('insert_brands.php');
     }
     if (isset($_GET['insert_categories'])) {
         include('insert_categories.php');
+        include('view_categories.php');
+    }
+    if (isset($_GET['users'])) {
+        include('list_users.php');
     }
     ?>
 

@@ -20,66 +20,80 @@ $result = mysqli_query($conn, "SELECT * FROM products");
         <h2>Products</h2>
         <a href="cart.php">🛒 View Cart</a>
     </div>
-    <div class="products-container">
-
-        <?php
-        $sql = "select * from products";
-        $result = mysqli_query($conn, $sql);
-        $rate = 5;
-
-        if (mysqli_num_rows($result) > 0) {
+    <main>
+        <aside>
+            <h1>Brands</h1>
+            <?php
+            $stmnt = "SELECT brand_name from brands";
+            $result = mysqli_query($conn, $stmnt);
             while ($row = mysqli_fetch_assoc($result)) {
-                $rating = (int)$row['productRatings']; // rating from DB
-                $maxStars = 5;
-                $stars = "";
+                echo "<a href=''> {$row['brand_name']}</a> <br>";
+            }
+            ?>
+            <h1>Categories</h1>
+            <?php
+            $stmnt = "SELECT category_title from categories";
+            $result = mysqli_query($conn, $stmnt);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<a href=''> {$row['category_title']}</a> <br>";
+            }
+            ?>
+        </aside>
+        <div class="products-container">
 
-                // Full stars
-                for ($i = 1; $i <= $rating; $i++) {
-                    $stars .= "⭐";
-                }
+            <?php
+            $sql = "select * from products";
+            $result = mysqli_query($conn, $sql);
+            $rate = 5;
 
-                // Empty stars
-                for ($i = $rating + 1; $i <= $maxStars; $i++) {
-                    $stars .= "☆";
-                }
-                $markPrice = $row['productRate'] + ($row['productRate'] * 0.15); ?>
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $rating = (int)$row['productRatings']; // rating from DB
+                    $maxStars = 5;
+                    $stars = "";
 
-                <div class='product-container'>
-                    <div class='product-card'>
-                        <div class='img-div'>
-                            <a href="product_description.php?id=<?= $row['productID'] ?>">
-                                <img src="../images/products/<?= $row['productImg'] ?>" class='product-image'>
-                            </a>
-                            <!-- <img src='../images/products/<?= $row["productImg"] ?>' alt='<?= $row["productname"] ?>' class='product-image' /> -->
-                        </div>
-                        <div class="product-desc">
-                            <div class='prdctHeading'>
-                                <div class='productTitle'>
-                                    <h2><?= $row['productname'] ?></h2>
-                                    <p><?= $rating ?>/5 <?= $stars ?></p>
+                    // Full stars
+                    for ($i = 1; $i <= $rating; $i++) {
+                        $stars .= "⭐";
+                    }
+
+                    // Empty stars
+                    for ($i = $rating + 1; $i <= $maxStars; $i++) {
+                        $stars .= "☆";
+                    }
+                    $markPrice = $row['productRate'] + ($row['productRate'] * 0.15); ?>
+
+                    <div class='product-container'>
+                        <div class='product-card'>
+                            <div class='img-div'>
+                                <a href="product_description.php?id=<?= $row['productID'] ?>">
+                                    <img src="../images/products/<?= $row['productImg'] ?>" class='product-image'>
+                                </a>
+                            </div>
+                            <div class="product-desc">
+                                <div class='prdctHeading'>
+                                    <div class='productTitle'>
+                                        <h2><?= $row['productname'] ?></h2>
+                                        <p><?= $rating ?>/5 <?= $stars ?></p>
+                                    </div>
+                                    <div class='price'>
+                                        <p>In stock</p>
+                                        <h3>₹<?= $row['productRate'] ?> <span>(₹<?= $markPrice ?>)</span></h3>
+                                    </div>
+                                    <a href="../user/add_to_cart.php" class="addToCartBtn"><button>Add to cart</button></a>
                                 </div>
-                                <div class='price'>
-                                    <p>In stock</p>
-                                    <h3>₹<?= $row['productRate'] ?> <span>(₹<?= $markPrice ?>)</span></h3>
-                                </div>
-                                <!-- <button onclick='addToCart(
-                    <?= $row["productID"] ?>,
-                    "<?= $row["productname"] ?>",
-                    <?= $row["productRate"] ?>
-                     )'>Add to cart</button> -->
-                                <a href="../user/add_to_cart.php" class="addToCartBtn"><button>Add to cart</button></a>
                             </div>
                         </div>
                     </div>
-                </div>
-        <?php }
-        } else {
-            echo "
+            <?php }
+            } else {
+                echo "
         <h1>No data found</h1>
         ";
-        }
-        ?>
-    </div>
+            }
+            ?>
+        </div>
+    </main>
 </body>
 
 </html>

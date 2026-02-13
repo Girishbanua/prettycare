@@ -1,4 +1,7 @@
-<h2>Admin – Add / Update Product</h2>
+<head>
+    <link rel="stylesheet" href="./stile.css">
+</head>
+<h2>Insert Products</h2>
 
 <form method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?= $editData['productID'] ?? '' ?>">
@@ -56,7 +59,8 @@
     <input type="file" name="productImg">
 
     <label for="">Product Description</label>
-    <input type="text" name="productDesc" placeholder="Enter the description for the product">
+    <input type="text" name="productDesc" placeholder="Enter the description for the product"
+        value="<?= $editData['productDesc'] ?? '' ?>">
 
     <button type="submit" name="save">
         <?= isset($editData) ? "Update Product" : "Add Product" ?>

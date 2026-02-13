@@ -11,6 +11,9 @@ body {
   padding: 30px;
   color: #333;
 }
+main {
+  display: flex;
+}
 
 /* Page heading */
 h2 {
@@ -34,6 +37,34 @@ h2 {
   box-shadow: 3px 5px 10px #0000006b;
   border-radius: 10px;
 }
+aside {
+  background: #f37474;
+  padding: 20px;
+  width: 300px;
+  height: 100vh;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px #333;
+}
+aside h2 {
+  font-size: 30px;
+}
+aside h1 {
+  font-size: 50px;
+  color: #fff;
+}
+aside h1:hover {
+  color: #fff;
+}
+aside a {
+  color: #fff;
+  font-size: 22px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+aside a:hover {
+  color: yellow;
+}
+
 /* Cart link */
 .cart-link {
   display: inline-block;
@@ -49,15 +80,19 @@ h2 {
 
 /* Product grid */
 .products-container {
-  /* display: flex;
-  flex-wrap: wrap; */
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 20px;
+  gap: 20px; */
 }
 
 /* Product card */
 .product-card {
+  width: 250px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 3px 5px 10px #0000006b;
