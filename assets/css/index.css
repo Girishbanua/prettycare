@@ -9,12 +9,15 @@
   --secondary: #4a90e2;
 }
 nav {
+  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
   height: 10vh;
   color: #df5555;
+  background: rgb(255 255 255 / 80%);
+  width: 100%;
 }
 h1 {
   font-family: "French Script MT";
@@ -39,8 +42,8 @@ h1,
 
 .hero {
   background-image: url(../../images/bgimage.png);
-  height: 654px;
-  background-position: 74% 22%;
+  height: 730px;
+  background-position: 74% 7%;
   display: flex;
   align-items: center;
   justify-content: end;

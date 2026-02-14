@@ -44,6 +44,8 @@ aside {
   height: 100vh;
   border-radius: 20px;
   box-shadow: 5px 5px 10px #333;
+  position: sticky;
+  top: 30px;
 }
 aside h2 {
   font-size: 30px;

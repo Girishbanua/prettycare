@@ -1,51 +1,68 @@
 <?php
-require_once "../includes/db.php";
-require_once "../includes/auth_check.php";
 
+require_once '../includes/db.php';
+
+$cart = $_SESSION['cart'] ?? [];
+
+if (empty($cart)) {
+    echo "Cart is empty";
+    exit();
+}
+
+// 🔴 REMOVE ITEM
+if (isset($_POST['remove_item'])) {
+
+    $product_id = (int) $_POST['product_id'];
+
+    if (isset($_SESSION['cart'][$product_id])) {
+        unset($_SESSION['cart'][$product_id]);
+    }
+
+    header("Location: cart.php");
+    exit();
+}
+$cart = $_SESSION['cart'];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Cart</title>
-    <script src="../assets/js/cart.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-
     <h2>Your Cart</h2>
-    <a href="products.php">← Continue Shopping</a>
+    <a href="../pages/products.php">Continue Shopping</a>
     <hr>
 
-    <div id="cart"></div>
+    <?php
+    $total = 0;
 
-    <a href="checkout.php"><button>Proceed to Checkout</button></a>
+    foreach ($cart as $product_id => $quantity) {
 
-    <script>
-        let cart = getCart();
-        let html = "";
-        let total = 0;
+        $result = mysqli_query($conn, "SELECT * FROM products WHERE productID = $product_id");
+        $product = mysqli_fetch_assoc($result);
 
-        if (cart.length === 0) {
-            html = "<p>Cart is empty</p>";
-        } else {
-            cart.forEach(item => {
-                total += item.price * item.qty;
-                html += `
-            <p>
-                ${item.name} - ₹${item.price} × 
-                <input type="number" value="${item.qty}" min="1"
-                onchange="updateQty(${item.id}, this.value)">
-                <button onclick="removeFromCart(${item.id})">Remove</button>
-            </p>
-        `;
-            });
-            html += `<h3>Total: ₹${total}</h3>`;
-        }
+        $subtotal = $product['productRate'] * $quantity;
+        $total += $subtotal;
+    ?>
 
-        document.getElementById("cart").innerHTML = html;
-    </script>
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+            <h3><?php echo $product['productname']; ?></h3>
+            <p>Quantity: <?php echo $quantity; ?></p>
+            <p>Subtotal: ₹<?php echo $subtotal; ?></p>
+            <form method="POST">
+                <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+                <button type="submit" name="remove_item">Remove</button>
+            </form>
+        </div>
+
+    <?php } ?>
+
+    <h2>Total: ₹<?php echo $total; ?></h2>
 
 </body>
 

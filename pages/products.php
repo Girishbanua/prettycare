@@ -1,7 +1,8 @@
 <?php
 require_once "../includes/db.php";
-
-$result = mysqli_query($conn, "SELECT * FROM products");
+if (isset($_GET['added'])) {
+    echo "<p style='color:green;'>Item added to cart successfully!</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +50,7 @@ $result = mysqli_query($conn, "SELECT * FROM products");
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $rating = (int)$row['productRatings']; // rating from DB
+                    $id = (int)$row['productID'];
                     $maxStars = 5;
                     $stars = "";
 
@@ -80,7 +82,10 @@ $result = mysqli_query($conn, "SELECT * FROM products");
                                         <p>In stock</p>
                                         <h3>₹<?= $row['productRate'] ?> <span>(₹<?= $markPrice ?>)</span></h3>
                                     </div>
-                                    <a href="../user/add_to_cart.php" class="addToCartBtn"><button>Add to cart</button></a>
+                                    <form action="../user/add_to_cart.php" method="post">
+                                        <input type="hidden" name="product_id" value="<?php echo $id; ?>">
+                                        <button name="add_to_cart" class="addToCartBtn">Add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
