@@ -17,7 +17,7 @@ $orderCount = mysqli_fetch_assoc($orderCountQuery);
 // Fetch recent orders
 $recentOrders = mysqli_query(
     $conn,
-    "SELECT id, total, status, created_at 
+    "SELECT order_id, total_amount, order_status, created_at 
      FROM orders 
      WHERE user_id = $user_id 
      ORDER BY created_at DESC 
@@ -78,10 +78,10 @@ $recentOrders = mysqli_query(
 
                         <?php while ($row = mysqli_fetch_assoc($recentOrders)) { ?>
                             <tr>
-                                <td>#<?php echo $row['id']; ?></td>
-                                <td>₹<?php echo $row['total']; ?></td>
-                                <td class="status <?php echo strtolower($row['status']); ?>">
-                                    <?php echo $row['status']; ?>
+                                <td>#<?php echo $row['order_id']; ?></td>
+                                <td>₹<?php echo $row['total_amount']; ?></td>
+                                <td class="status <?php echo strtolower($row['order_status']); ?>">
+                                    <?php echo $row['order_status']; ?>
                                 </td>
                                 <td><?php echo date("d M Y", strtotime($row['created_at'])); ?></td>
                             </tr>

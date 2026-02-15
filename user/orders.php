@@ -6,7 +6,7 @@ $userId = $_SESSION["user_id"];
 
 $result = mysqli_query(
     $conn,
-    "SELECT id, total, status, created_at 
+    "SELECT order_id, total_amount, order_status,address, created_at 
      FROM orders 
      WHERE user_id = $userId 
      ORDER BY created_at DESC"
@@ -45,20 +45,22 @@ $result = mysqli_query(
                         <th>Order ID</th>
                         <th>Total</th>
                         <th>Status</th>
+                        <th>Address</th>
                         <th>Date</th>
                         <th>Action</th>
                     </tr>
 
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
-                            <td>#<?= $row["id"] ?></td>
-                            <td>₹<?= $row["total"] ?></td>
-                            <td class="status <?= strtolower($row["status"]) ?>">
-                                <?= $row["status"] ?>
+                            <td>#<?= $row["order_id"] ?></td>
+                            <td>₹<?= $row["total_amount"] ?></td>
+                            <td class="status <?= strtolower($row["order_status"]) ?>">
+                                <?= $row["order_status"] ?>
                             </td>
+                            <td><?= $row["address"] ?></td>
                             <td><?= date("d M Y", strtotime($row["created_at"])) ?></td>
                             <td>
-                                <a href="order_details.php?id=<?= $row["id"] ?>" class="btn">
+                                <a href="order_details.php?id=<?= $row["order_id"] ?>" class="btn">
                                     View
                                 </a>
                             </td>

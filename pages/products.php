@@ -1,8 +1,14 @@
 <?php
 require_once "../includes/db.php";
-if (isset($_GET['added'])) {
-    echo "<p style='color:green;'>Item added to cart successfully!</p>";
-}
+// if (isset($_GET['added'])) {
+//     echo "<p class='alert success' style='color:green;'>Item added to cart successfully!</p>";
+// }
+$cart = $_SESSION['cart'] ?? [];
+
+if (empty($cart)) {
+    $cart_items = 0;
+} else
+    $cart_items = array_sum($_SESSION['cart']);
 ?>
 
 <!DOCTYPE html>
@@ -16,10 +22,14 @@ if (isset($_GET['added'])) {
 </head>
 
 <body>
+    <div id="msg"></div>
 
     <div class="products-header">
         <h2>Products</h2>
-        <a href="cart.php">🛒 View Cart</a>
+        <div class="cartbtn">
+            <a href="cart.php">🛒 Pretty Cart </a>
+            <p id="cart_count"><?= $cart_items ?></p>
+        </div>
     </div>
     <main>
         <aside>
@@ -82,10 +92,10 @@ if (isset($_GET['added'])) {
                                         <p>In stock</p>
                                         <h3>₹<?= $row['productRate'] ?> <span>(₹<?= $markPrice ?>)</span></h3>
                                     </div>
-                                    <form action="../user/add_to_cart.php" method="post">
-                                        <input type="hidden" name="product_id" value="<?php echo $id; ?>">
-                                        <button name="add_to_cart" class="addToCartBtn">Add to cart</button>
-                                    </form>
+                                    <!-- <form action="../user/add_to_cart.php" method="post"> -->
+                                    <!-- <input type="hidden" name="product_id" value="<?php echo $id; ?>"> -->
+                                    <button name="add_to_cart" class="addToCartBtn" id="addBtn" onclick="addToCart(<?= $row['productID'] ?>)">Add to cart</button>
+                                    <!-- </form> -->
                                 </div>
                             </div>
                         </div>
@@ -100,5 +110,39 @@ if (isset($_GET['added'])) {
         </div>
     </main>
 </body>
+<script>
+    function addToCart(productId) {
+
+        fetch('../user/add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'product_id=' + productId
+            })
+            .then(response => response.text())
+            .then(data => {
+
+                if (data.trim() === 'success') {
+
+                    // update cart count AFTER success
+                    let cartCount = document.getElementById("cart_count");
+                    let count = parseInt(cartCount.innerText);
+                    cartCount.innerText = count + 1;
+
+                    // show message
+                    let msg = document.getElementById("msg");
+                    if (msg) {
+                        msg.innerText = "✔ Item added!";
+                    }
+
+                } else {
+                    alert("Error adding item");
+                }
+            })
+            .catch(error => console.error(error));
+    }
+</script>
+
 
 </html>

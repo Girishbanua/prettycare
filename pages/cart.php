@@ -2,10 +2,22 @@
 
 require_once '../includes/db.php';
 
+
+if (isset($_SESSION['success'])) {
+    echo "<div class='alert success'>" . $_SESSION['success'] . "</div>";
+
+    // Remove message after showing once
+    unset($_SESSION['success']);
+}
+
 $cart = $_SESSION['cart'] ?? [];
 
 if (empty($cart)) {
-    echo "Cart is empty";
+    echo "
+     <h1>Cart is empty</h1> 
+     <br> 
+     <a href='../pages/products.php'>Continue Shopping</a>
+    ";
     exit();
 }
 
@@ -22,6 +34,7 @@ if (isset($_POST['remove_item'])) {
     exit();
 }
 $cart = $_SESSION['cart'];
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +76,11 @@ $cart = $_SESSION['cart'];
     <?php } ?>
 
     <h2>Total: ₹<?php echo $total; ?></h2>
+    <a href="checkout.php">
+        <button>Proceed to Checkout</button>
+    </a>
 
 </body>
+
 
 </html>

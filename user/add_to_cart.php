@@ -3,40 +3,24 @@ require_once "../includes/db.php";
 
 $product_id = (int) $_POST['product_id'];
 
-// if (isset($_SESSION['user_id'])) {
-//     // ✅ Logged-in user → store in DB
-//     $user_id = $_SESSION['user_id'];
+// if (isset($_POST['add_to_cart'])) {
 
-//     $stmt = $conn->prepare(
-//         "SELECT quantity FROM cart WHERE user_id = ? AND product_id = ?"
-//     );
-//     $stmt->bind_param("ii", $user_id, $product_id);
-//     $stmt->execute();
-//     $result = $stmt->get_result();
+//     $product_id = (int) $_POST['product_id'];
 
-//     if ($result->num_rows > 0) {
-//         $stmt = $conn->prepare(
-//             "UPDATE cart
-//              SET quantity = quantity + 1
-//              WHERE user_id = ? AND product_id = ?"
-//         );
-//         $stmt->bind_param("ii", $user_id, $product_id);
-//         $stmt->execute();
+//     if (isset($_SESSION['cart'][$product_id])) {
+//         $_SESSION['cart'][$product_id]++;
 //     } else {
-//         $stmt = $conn->prepare(
-//             "INSERT INTO cart (user_id, product_id, quantity)
-//              VALUES (?, ?, ?)"
-//         );
-//         $qnt = 1;
-//         $stmt->bind_param("iii", $user_id, $product_id, $qnt);
-//         $stmt->execute();
+//         $_SESSION['cart'][$product_id] = 1;
 //     }
-// } else {
-//     // ❌ Guest user → store in session
-//     $_SESSION['cart'][$product_id] =
-//         ($_SESSION['cart'][$product_id] ?? 0) + 1;
+
+//     // Set flash message
+//     $_SESSION['success'] = "Item added to cart successfully!";
+
+//     // header("Location: ../pages/products.php");
+//     exit();
 // }
-if (isset($_POST['add_to_cart'])) {
+
+if (isset($_POST['product_id'])) {
 
     $product_id = (int) $_POST['product_id'];
 
@@ -46,10 +30,11 @@ if (isset($_POST['add_to_cart'])) {
         $_SESSION['cart'][$product_id] = 1;
     }
 
-    // header("Location: ../pages/cart.php");    
-    header("Location: ../pages/products.php?added=1");
-
+    // return success to JS
+    echo "success";
     exit();
 }
+
+
 // header("Location: ../pages/cart.php");
 exit;
