@@ -59,8 +59,10 @@ exit;
     ?>
 
  <?php
-
     require_once "../includes/db.php";
+    $_SESSION['redirect_url'] = "pages/checkout.php";
+
+    require_once "../includes/auth_check.php";
 
     $cart = $_SESSION['cart'] ?? [];
 
@@ -69,13 +71,31 @@ exit;
         exit();
     }
     ?>
+ <!DOCTYPE html>
+ <html lang="en">
 
- <h2>Checkout</h2>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Checkout</title>
+     <link rel="stylesheet" href="../assets/css/checkout.css">
+     <link rel="stylesheet" href="../assets/css/index.css">
+ </head>
 
- <form action="place_order.php" method="POST">
-     <input type="text" name="name" placeholder="Your Name" required><br>
-     <input type="text" name="phone" placeholder="Phone" required><br>
-     <textarea name="address" placeholder="Address" required></textarea><br>
+ <body>
+     <div class="checkout-container">
+         <h2>Checkout</h2>
 
-     <button type="submit">Place Order</button>
- </form>
+         <form action="place_order.php" method="POST" class="checkout-form">
+             <input type="text" name="name" placeholder="Your Name" required>
+
+             <input type="text" name="phone" placeholder="Phone" required>
+
+             <textarea name="address" placeholder="Address" required></textarea>
+
+             <button type="submit">Place Order</button>
+         </form>
+     </div>
+ </body>
+
+ </html>

@@ -1,6 +1,7 @@
 <?php
 
 require_once "../includes/db.php";
+$_SESSION['redirect_url'] = "user/dashboard.php";
 require_once "../includes/auth_check.php";
 
 $user_id = $_SESSION['user_id'];

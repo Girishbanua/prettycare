@@ -30,7 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     header("Location: ./admin/admin.php");
                     exit;
                 } else {
-                    header("Location: ./user/dashboard.php");
+                    $redirect = $_SESSION['redirect_url'];
+                    header("Location: $redirect");
+                    unset($_SESSION['redirect_url']);
                     exit;
                 }
             } else {

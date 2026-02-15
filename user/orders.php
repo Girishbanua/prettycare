@@ -1,4 +1,5 @@
 <?php
+// require_once "../includes/admin_check.php";
 require_once "../includes/db.php";
 require_once "../includes/auth_check.php";
 

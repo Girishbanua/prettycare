@@ -96,7 +96,7 @@ if (isset($_GET['edit'])) {
                     <li><a href="view_products.php">View Brands</a></li>
                 </ul>
             </li>
-            <li><a href="orders.php">All Orders</a></li>
+            <li><a href="../user/orders.php">All Orders</a></li>
             <li><a href="payments.php">All Payments</a></li>
             <li><a href="admin.php?users">List Users</a></li>
             <li><a href="logout.php" class="logout">Logout</a></li>
