@@ -42,7 +42,7 @@ $recentOrders = mysqli_query(
         <!-- Sidebar -->
         <aside class="sidebar">
             <h2>My Account</h2>
-            <a href="../index.php">Home</a>
+            <a href="../pages/products.php">Shop</a>
             <a href="dashboard.php">Dashboard</a>
             <a href="orders.php">My Orders</a>
             <a href="profile.php">Profile</a>

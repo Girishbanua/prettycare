@@ -11,16 +11,38 @@ h2 {
   color: #2c3e50;
   letter-spacing: 1px;
 }
+table {
+  background-color: #fff;
+}
+table a {
+  border-radius: 5px;
+}
+.edt {
+  background-color: rgb(255, 146, 68);
+  color: white;
+}
+.edt:hover {
+  background-color: rgb(232, 124, 47);
+}
+.dlt {
+  background-color: rgb(255, 99, 68);
+  color: white;
+  transition: ease-in-out 0.3s;
+}
+.dlt:hover {
+  background-color: rgb(247, 40, 40);
+}
 
 /* Form card */
 form {
   max-width: 520px;
   margin: auto;
-  background: #ffffff;
+  background: #1f2933;
   padding: 30px 35px;
   border-radius: 14px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
   animation: fadeIn 0.5s ease-in-out;
+  color: #dcdde1;
 }
 
 /* Labels */
@@ -29,7 +51,6 @@ form label {
   margin-top: 15px;
   margin-bottom: 6px;
   font-weight: 600;
-  color: #34495e;
 }
 
 /* Inputs & selects */
@@ -103,4 +124,13 @@ form button:active {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.admin_insert {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.insertProducts {
+  position: sticky;
+  top: 0px;
 }

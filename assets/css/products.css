@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
 body {
@@ -44,6 +43,7 @@ h2 {
   margin-bottom: 15px;
 }
 .products-header {
+  margin-top: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;

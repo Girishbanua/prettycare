@@ -1,14 +1,16 @@
-<h2>All Products</h2>
+<div class="allProducts">
+  <h2>All Products</h2>
 
-<table>
-  <tr>
-    <th>Image</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Rating</th>
-    <th>Description</th>
-    <th>Actions</th>
-  </tr>
+  <table>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Rating</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
 
-  <?php getProducts(); ?>
-</table>
+    <?php getProducts(); ?>
+  </table>
+</div>

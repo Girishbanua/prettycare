@@ -1,6 +1,12 @@
 <?php
 require_once "./includes/db.php";
-include "./functions/common_functions.php"
+include "./functions/common_functions.php";
+$cart = $_SESSION['cart'] ?? [];
+
+if (empty($cart)) {
+  $cart_items = 0;
+} else
+  $cart_items = array_sum($_SESSION['cart']);
 ?>
 
 <!DOCTYPE html>
@@ -11,32 +17,34 @@ include "./functions/common_functions.php"
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" /> -->
   <!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
-  <title>Ecommerce</title>
+  <title>Blush</title>
   <link rel="stylesheet" href="./assets/css/index.css" />
   <link rel="stylesheet" href="./assets/css/categories.css">
-
+  <link rel="icon" type="image/png" href="./images/products/img_2.jpg">
 </head>
 
 <body>
   <nav>
     <div id="logo">
-      <h1 id="logo">Blush</h1>
+      <h1>Blush</h1>
     </div>
     <div id="menus">
       <ul>
         <li><a href="">Home</a></li>
         <li><a href="">About Us</a></li>
         <li><a href="pages/products.php">Shop</a></li>
-        <li><a href="">Categories</a></li>
-        <li><a href="">Order</a></li>
+        <li><a href="#ctaegories">Categories</a></li>
+        <li><a href="user/orders.php">Order</a></li>
       </ul>
     </div>
     <div id="icons">
       <a href="pages/signup.php">Signup</a>
       <a href="pages/cart.php"><img src="./icons/shopping-cart.png" alt="Add to cart" width="25px" /></a>
+      <p class="item_count" style="display: <?= $cart_items > 0 ? 'block' : 'none' ?>;" id="cart_count"><?= $cart_items ?></p>
       <a href="user/dashboard.php"><img src="./icons/user.png" alt="Profile" width="25px" /></a>
-
     </div>
+    <div id="menu-toggle">&#9776;</div>
+
   </nav>
   <main>
     <div class="hero">
@@ -51,7 +59,9 @@ include "./functions/common_functions.php"
         <a href="pages/products.php" class="btn">Browse Products</a>
       </div>
     </div>
-    <?php include "./pages/categories.php" ?>
+    <section id="ctaegories">
+      <?php include "./pages/categories.php" ?>
+    </section>
     <section class="latest">
       <h1>Latest Releases</h1>
     </section>
@@ -109,5 +119,13 @@ include "./functions/common_functions.php"
     <p>© 2026 Blush. All rights reserved.</p>
   </div>
 </footer>
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menus");
+
+  toggle.addEventListener("click", () => {
+    menu.classList.toggle("active");
+  });
+</script>
 
 </html>

@@ -31,17 +31,20 @@
 
 <div class="category-container">
     <?php
+
     $stmnt = "SELECT * FROM categories";
     $result = mysqli_query($conn, $stmnt);
 
     while ($row = mysqli_fetch_assoc($result)) {
         $title = $row['category_title'];
         $image = $row['image_path'];
-
+        $name = $row['category_title'];
+        $c_id = $row['category_id'];
         echo "<div class='categories'>
-        <img src='../images/categories/$image' alt='$image'>
+                 <img src='../images/categories/$image' alt='$image'>
                   <p>$title</p> 
-                  </div>";
+                  <a class='btn dlt' href='admin.php?insert_categories&delete_cat={$c_id}' onclick='return confirm(\"Delete $name?\")'>Delete</a>
+              </div>";
     }
     ?>
 </div>

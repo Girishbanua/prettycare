@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"]);
     $address = trim($_POST["address"]);
     $password = $_POST["password"];
+    $role = 'user';
 
     if (empty($name) || empty($email) || empty($password) || empty($address)) {
         $message = "All fields are required";
@@ -25,12 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $stmt = mysqli_prepare(
                 $conn,
-                "INSERT INTO users (name, email, password, address) VALUES (?, ?, ?, ?)"
+                "INSERT INTO users (name, email, role, password, address) VALUES (?, ?, ?, ?, ?)"
             );
-            mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $hashedPassword, $address);
+            mysqli_stmt_bind_param($stmt, "sssss", $name, $email, $role, $hashedPassword, $address);
 
             if (mysqli_stmt_execute($stmt)) {
-                header("Location: login.php");
+                header("Location: /ecommerce/login.php");
                 exit;
             } else {
                 $message = "Signup failed";

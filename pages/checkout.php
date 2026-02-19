@@ -61,6 +61,7 @@ exit;
  <?php
     require_once "../includes/db.php";
     $_SESSION['redirect_url'] = "pages/checkout.php";
+    $user_id = $_SESSION['user_id'];
 
     require_once "../includes/auth_check.php";
 
@@ -70,6 +71,9 @@ exit;
         echo "Cart is empty!";
         exit();
     }
+
+    $result = mysqli_query($conn, "select * from users where id = $user_id");
+    $row = mysqli_fetch_assoc($result);
     ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -83,19 +87,30 @@ exit;
  </head>
 
  <body>
+     <div class="checkout_img">
+     </div>
      <div class="checkout-container">
-         <h2>Checkout</h2>
+         <h2>Shipping Address</h2>
 
-         <form action="place_order.php" method="POST" class="checkout-form">
-             <input type="text" name="name" placeholder="Your Name" required>
+         <form action="payment.php" method="POST" class="checkout-form">
+             <div>
+                 <input type="text" name="name" placeholder="First Name" value="<?= $row['name'] ?>" required>
+                 <input type="text" name="lname" placeholder="Last Name" value="<?= $row['name'] ?>" required>
+             </div>
 
-             <input type="text" name="phone" placeholder="Phone" required>
+             <input type="text" name="phone" placeholder="Phone" value="<?= $row['email'] ?>" required>
+             <label for="">Address</label>
+             <input name="address" placeholder="Address" value="<?= $row['address'] ?>" required>
+             <div>
+                 <input type="text" name="city" placeholder="city" required>
+                 <input type="text" name="state" placeholder="state" required>
+                 <input type="text" name="pincode" placeholder="pincode" required>
+             </div>
 
-             <textarea name="address" placeholder="Address" required></textarea>
-
-             <button type="submit">Place Order</button>
+             <button type="submit">Deliver Here</button>
          </form>
      </div>
+
  </body>
 
  </html>

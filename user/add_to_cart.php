@@ -1,7 +1,7 @@
 <?php
 require_once "../includes/db.php";
 
-$product_id = (int) $_POST['product_id'];
+// $product_id = (int) $_POST['product_id'];
 
 // if (isset($_POST['add_to_cart'])) {
 
@@ -36,5 +36,5 @@ if (isset($_POST['product_id'])) {
 }
 
 
-// header("Location: ../pages/cart.php");
+header("Location: ../pages/products.php");
 exit;

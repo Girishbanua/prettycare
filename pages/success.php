@@ -8,7 +8,6 @@
     <style>
         ::afterbody {
             margin: 0;
-            /* font-family: 'Segoe UI', sans-serif; */
             background: linear-gradient(135deg, #f5f5f7, #ffe5e5);
             height: 100vh;
             display: flex;
@@ -142,6 +141,7 @@
             <div class="actions">
                 <a href="products.php" class="btn secondary">Continue Shopping</a>
                 <a href="../user/orders.php" class="btn primary">View Orders</a>
+                <a href="invoice.php?order_id=123">Download Invoice</a>
             </div>
 
         </div>

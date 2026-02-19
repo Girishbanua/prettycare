@@ -12,14 +12,6 @@ if (isset($_SESSION['success'])) {
 
 $cart = $_SESSION['cart'] ?? [];
 
-if (empty($cart)) {
-    echo "
-     <h1>Cart is empty</h1> 
-     <br> 
-     <a href='../pages/products.php'>Continue Shopping</a>
-    ";
-    exit();
-}
 
 // 🔴 REMOVE ITEM
 if (isset($_POST['remove_item'])) {
@@ -33,7 +25,7 @@ if (isset($_POST['remove_item'])) {
     header("Location: cart.php");
     exit();
 }
-$cart = $_SESSION['cart'];
+$cart = $_SESSION['cart'] ?? [];
 
 ?>
 
@@ -44,9 +36,9 @@ $cart = $_SESSION['cart'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/index.css">
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
             background: #f5f5f7;
         }
 
@@ -54,6 +46,7 @@ $cart = $_SESSION['cart'];
         .cart-container {
             width: 80%;
             margin: 40px auto;
+            animation: fadeIn 0.7s ease-in-out;
         }
 
         /* Heading */
@@ -163,17 +156,94 @@ $cart = $_SESSION['cart'];
         .checkout-btn:active {
             transform: scale(0.97);
         }
+
+        /* Continue Shopping */
+        .continue-btn {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #e35d5b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Card Style */
+        .empty-cart-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 60px 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Icon */
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        /* Text */
+        .empty-cart-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .empty-cart-card p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        /* Button */
+        .shop-btn {
+            display: inline-block;
+            background: #e35d5b;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .shop-btn:hover {
+            background: #ff5e5bff;
+            color: #fff;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div class="cart-container">
-        <h2>Your Cart</h2>
+        <?php
+        if (empty($cart)) {
+            echo "
+            <h2>Your Cart</h2>
 
-        <a href="../pages/products.php" class="continue-btn">← Continue Shopping</a>
+              <a href='../pages/products.php' class='continue-btn'>
+                  ← Continue Shopping
+                </a>
 
+                <!-- Empty Cart Card -->
+                <div class='empty-cart-card'>
+                    <div class='empty-icon'>🛒</div>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven’t added anything yet.</p>
+
+                     <a href='../pages/products.php' class='shop-btn'>
+                      Start Shopping
+                      </a>
+                </div>
+             ";
+            exit();
+        }
+
+        ?>
         <div class="cart-items">
-
+            <h2>Your Cart</h2>
+            <a href='../pages/products.php' class='continue-btn'>
+                ← Continue Shopping
+            </a>
             <?php
             $total = 0;
 
@@ -185,6 +255,7 @@ $cart = $_SESSION['cart'];
                 $subtotal = $product['productRate'] * $quantity;
                 $total += $subtotal;
             ?>
+                <?php $_SESSION['total'] = $total; ?>
 
                 <div class="cart-card">
                     <div class="cart-details">

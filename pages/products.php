@@ -25,7 +25,9 @@ if (empty($cart)) {
     <div id="msg"></div>
 
     <div class="products-header">
-        <h2>Products</h2>
+        <a href="../index.php">
+            <h1 style="font-family: French Script MT;">Blush</h1>
+        </a>
         <div class="cartbtn">
             <a href="cart.php">🛒 Pretty Cart </a>
             <p id="cart_count"><?= $cart_items ?></p>
@@ -92,10 +94,10 @@ if (empty($cart)) {
                                         <p>In stock</p>
                                         <h3>₹<?= $row['productRate'] ?> <span>(₹<?= $markPrice ?>)</span></h3>
                                     </div>
-                                    <!-- <form action="../user/add_to_cart.php" method="post"> -->
-                                    <!-- <input type="hidden" name="product_id" value="<?php echo $id; ?>"> -->
-                                    <button name="add_to_cart" class="addToCartBtn" id="addBtn" onclick="addToCart(<?= $row['productID'] ?>)">Add to cart</button>
-                                    <!-- </form> -->
+                                    <form action="../user/add_to_cart.php" method="post">
+                                        <!-- <input type="hidden" name="product_id" value="<?php echo $id; ?>">-->
+                                        <button name="add_to_cart" class="addToCartBtn" id="addBtn" onclick="addToCart(<?= $row['productID'] ?>)">Add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -3,13 +3,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat";
+  scroll-behavior: smooth;
 }
 :root {
   --primary: #e24a6b;
   --secondary: #4a90e2;
 }
 nav {
-  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,9 +18,19 @@ nav {
   color: #df5555;
   background: rgb(255 255 255 / 80%);
   width: 100%;
+
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(10px);
+}
+
+nav h1 {
+  font-family: "French Script MT";
 }
 h1 {
-  font-family: "French Script MT";
+  font-size: 30px;
 }
 ul {
   display: flex;
@@ -38,15 +48,29 @@ a:hover {
 h1,
 #icons {
   cursor: pointer;
+  position: relative;
 }
-
+.item_count {
+  position: absolute;
+  top: -15px;
+  right: 23px;
+  background: #df8988;
+  padding: 4px;
+  border-radius: 100%;
+  width: 22px;
+  height: 23px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+}
 .hero {
-  background-image: url(../../images/bgimage.png);
+  background-image: url(../../images/bgimage.webp);
   height: 730px;
   background-position: 74% 7%;
   display: flex;
   align-items: center;
   justify-content: end;
+  animation: fadeIn 0.7s ease-in-out;
 }
 .hero-text {
   width: 500px;
@@ -66,13 +90,94 @@ h1,
   box-shadow: 2px 2px 10px #ddd;
   color: #fff;
 }
+/* Hamburger hidden on desktop */
+#menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  nav {
+    padding: 15px 20px;
+  }
+
+  /* Hide menu initially */
+  #menus {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  #menus ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Show when active */
+  #menus.active {
+    display: flex;
+  }
+
+  /* Show hamburger */
+  #menu-toggle {
+    display: block;
+  }
+
+  /* Reduce icons spacing */
+  #icons {
+    display: flex;
+    gap: 10px;
+  }
+
+  #icons a {
+    font-size: 14px;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    height: auto;
+    padding: 120px 20px 60px;
+    justify-content: center;
+    text-align: center;
+    background-position: center;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .hero-text h2 {
+    font-size: 36px;
+  }
+
+  .hero-text p {
+    font-size: 14px;
+  }
+
+  .btn {
+    display: inline-block;
+    margin: 10px 5px;
+  }
+}
+
 .latest {
-  background-color: #df5555;
+  background: linear-gradient(120deg, #ff7a7a, #ffa6a6);
   text-align: center;
 }
 .latest h1 {
   color: white;
-  font-size: 90px;
+  font-size: 50px;
+  font-weight: 200;
+  padding: 10px;
 }
 .productList {
   display: flex;
@@ -227,4 +332,14 @@ h3 span {
   padding-top: 15px;
   border-top: 1px solid #ddd;
   font-size: 14px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

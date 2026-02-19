@@ -1,5 +1,7 @@
 <?php
 include "../includes/db.php";
+require_once "../includes/admin_check.php";
+include "../functions/common_functions.php";
 
 /* CREATE & UPDATE */
 if (isset($_POST['save'])) {
@@ -39,14 +41,14 @@ if (isset($_POST['save'])) {
 }
 
 
-/* DELETE */
+/* DELETE PRODUCTS*/
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     mysqli_query($conn, "DELETE FROM products WHERE productID=$id");
     header("Location: admin.php");
 }
 
-/* EDIT */
+/* EDIT PRODUCTS*/
 $editData = null;
 if (isset($_GET['edit'])) {
     $id = (int)$_GET['edit'];
@@ -57,6 +59,19 @@ if (isset($_GET['edit'])) {
     }
 
     $editData = mysqli_fetch_assoc($res);
+}
+
+//DELETE CATEGORy
+
+if (isset($_GET['delete_cat'])) {
+    $id = (int)$_GET['delete_cat'];
+    $res = mysqli_query($conn, "DELETE FROM categories WHERE category_id=$id");
+    if ($res) {
+        echo "<script>alert('Deleted selected item!')</script>";
+        header("Location: admin.php?insert_categories");
+    } else {
+        echo "<script>alert('could not delete selected item. Server Error!')</script>";
+    }
 }
 ?>
 
@@ -102,30 +117,35 @@ if (isset($_GET['edit'])) {
             <li><a href="logout.php" class="logout">Logout</a></li>
         </ul>
     </nav>
+    <main>
 
-    <?php
-    if (isset($_GET['insert_product'])) {
-        include('insert_product.php');
-        include('all_products.php');
-    }
-    if (isset($_GET['view_products'])) {
-        include('all_products.php');
-    }
-    if (isset($_GET['insert_brands'])) {
-        include('insert_brands.php');
-    }
-    if (isset($_GET['insert_categories'])) {
-        include('insert_categories.php');
-        include('view_categories.php');
-    }
-    if (isset($_GET['users'])) {
-        include('list_users.php');
-    }
+        <div>
+            <?php
+            if (isset($_GET['insert_product'])) { ?>
+                <div class="admin_insert">
+                    <?php
+                    include('all_products.php');
+                    include('insert_product.php');
+                    ?>
+                </div>
+        </div>
+    <?php }
+            if (isset($_GET['view_products'])) {
+                include('all_products.php');
+            }
+            if (isset($_GET['insert_brands'])) {
+                include('insert_brands.php');
+            }
+            if (isset($_GET['insert_categories'])) {
+                include('insert_categories.php');
+                include('view_categories.php');
+            }
+            if (isset($_GET['users'])) {
+                include('list_users.php');
+            }
     ?>
 
-    <hr>
-
-
+    </main>
 
 </body>
 
