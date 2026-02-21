@@ -39,12 +39,6 @@ $query = "INSERT INTO orders (
 $result = mysqli_query($conn, $query);
 
 if ($result) {
-
-    // Clear cart & checkout
-    unset($_SESSION['cart']);
-    unset($_SESSION['total']);
-    unset($_SESSION['checkout']);
-
     header("Location: success.php");
 } else {
     echo "Error: " . mysqli_error($conn);

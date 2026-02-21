@@ -10,7 +10,7 @@
 
         <div>
             <label for="">Product Category</label>
-            <select name="productcategory" id="">
+            <select name="productcategory" required>
                 <option value="">Select</option>
                 <?php
                 $stmnt = "SELECT * FROM categories";
@@ -28,7 +28,7 @@
         </div>
         <div>
             <label for="">Product brand</label>
-            <select name="productbrand" id="">
+            <select name="productbrand" required>
                 <option value="">Select</option>
                 <?php
                 $stmnt = "SELECT * FROM brands";
@@ -54,11 +54,11 @@
             value="<?= $editData['productRatings'] ?? '' ?>" min="1" max="5" required>
 
         <label for="">Product image</label>
-        <input type="file" name="productImg">
+        <input type="file" name="productImg" required>
 
         <label for="">Product Description</label>
         <input type="text" name="productDesc" placeholder="Enter the description for the product"
-            value="<?= $editData['productDesc'] ?? '' ?>">
+            value="<?= $editData['productDesc'] ?? '' ?>" required>
 
         <button type="submit" name="save">
             <?= isset($editData) ? "Update Product" : "Add Product" ?>

@@ -23,7 +23,7 @@ if (empty($cart)) {
 
 <body>
     <div id="msg"></div>
-
+    <!-- if empty -->
     <div class="products-header">
         <a href="../index.php">
             <h1 style="font-family: French Script MT;">Blush</h1>
@@ -45,17 +45,23 @@ if (empty($cart)) {
             ?>
             <h1>Categories</h1>
             <?php
-            $stmnt = "SELECT category_title from categories";
+            $stmnt = "SELECT * from categories";
             $result = mysqli_query($conn, $stmnt);
             while ($row = mysqli_fetch_assoc($result)) {
-                echo "<a href=''> {$row['category_title']}</a> <br>";
+                $category = $row['category_title'];
+                $cid = $row['category_id'];
+
+                echo "<a href='?category=$cid'> $category</a> <br>";
             }
             ?>
         </aside>
         <div class="products-container">
 
             <?php
-            $sql = "select * from products";
+
+            $category = $_GET['category'] ?? 0;
+
+            $sql = "SELECT * FROM products where Category = '$category'";
             $result = mysqli_query($conn, $sql);
             $rate = 5;
 

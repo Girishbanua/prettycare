@@ -1,13 +1,14 @@
 <?php
-
+include "../includes/db.php";
 $cart = $_SESSION['cart'];
+$checkout = $_SESSION['checkout'];
 
 foreach ($cart as $product_id => $quantity) {
     $result = mysqli_query($conn, "SELECT * FROM products WHERE productID = $product_id");
     $product = mysqli_fetch_assoc($result);
 
-    $name = $product['productName'];
-    $price = $product['price'];
+    $name = $product['productname'];
+    $price = $product['productRate'];
 }
 
 
@@ -19,13 +20,13 @@ class PDF extends FPDF
     function Header()
     {
         // Logo
-        // $this->Image('../assets/logo.png',10,6,30);
+        // $this->Image('./images/logo.png', 10, 6, 30);
 
         // Store Name
-        $this->SetFont('Montserrat', 'B', 18);
+        $this->SetFont('Arial', 'B', 18);
         $this->Cell(0, 10, 'Blush', 0, 1, 'C');
 
-        $this->SetFont('Montserrat', '', 10);
+        $this->SetFont('Arial', '', 10);
         $this->Cell(0, 5, 'Beauty Products Store', 0, 1, 'C');
         $this->Ln(5);
     }
@@ -34,7 +35,7 @@ class PDF extends FPDF
     function Footer()
     {
         $this->SetY(-15);
-        $this->SetFont('Montserrat', 'I', 8);
+        $this->SetFont('Arial', 'I', 8);
         $this->Cell(0, 10, 'Thank you for shopping with us!', 0, 0, 'C');
     }
 }
@@ -43,13 +44,15 @@ class PDF extends FPDF
 $pdf = new PDF();
 $pdf->AddPage();
 
+
+
 // Dummy Data (Replace with DB data)
 $invoice_no = "INV001";
 $date = date("d-m-Y");
-$customer_name = "John Doe";
+$customer_name = $checkout['name'] . " " . $checkout['lname'];
 
 // Invoice Details
-$pdf->SetFont('Montserrat', 'B', 12);
+$pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(100, 6, "Invoice #: $invoice_no", 0, 0);
 $pdf->Cell(0, 6, "Date: $date", 0, 1);
 
@@ -58,7 +61,7 @@ $pdf->Cell(100, 6, "Customer: $customer_name", 0, 1);
 $pdf->Ln(5);
 
 // Table Header
-$pdf->SetFont('Montserrat', 'B', 12);
+$pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(80, 10, 'Product', 1);
 $pdf->Cell(30, 10, 'Price', 1);
 $pdf->Cell(30, 10, 'Qty', 1);
@@ -74,7 +77,7 @@ $cart = [
 $total = 0;
 
 // Table Data
-$pdf->SetFont('Montserrat', '', 12);
+$pdf->SetFont('Arial', '', 12);
 foreach ($cart as $item) {
     $line_total = $item['price'] * $item['qty'];
     $total += $line_total;
@@ -89,8 +92,12 @@ foreach ($cart as $item) {
 // Summary
 $pdf->Ln(5);
 
-$pdf->SetFont('Montserrat', 'B', 12);
+$pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(140, 10, 'Grand Total', 1);
 $pdf->Cell(30, 10, $total, 1);
 
 $pdf->Output();
+
+// unset($_SESSION['cart']);
+// unset($_SESSION['total']);
+// unset($_SESSION['checkout']);

@@ -1,43 +1,61 @@
 <?php
 include "../includes/db.php";
-require_once "../includes/admin_check.php";
+// require_once "../includes/admin_check.php";
 include "../functions/common_functions.php";
 
 /* CREATE & UPDATE */
 if (isset($_POST['save'])) {
+
     $name = $_POST['productname'];
     $price = $_POST['productRate'];
     $rating = $_POST['productRatings'];
     $description = $_POST['productDesc'];
+    $cat_id = $_POST['productcategory'];
+    $brands = $_POST['productbrand'];
 
     $imgName = $_FILES['productImg']['name'];
     $tmpName = $_FILES['productImg']['tmp_name'];
-    $imgPath = "../images/products/" . $imgName;
-    move_uploaded_file($tmpName, $imgPath);
+
+    if (!empty($imgName)) {
+        $imgPath = "../images/products/" . $imgName;
+        move_uploaded_file($tmpName, $imgPath);
+    }
 
     if ($_POST['id'] == "") {
+
         // INSERT
         $sql = "INSERT INTO products 
-        (productname, productRate, productRatings, productImg, productDesc)
+        (productname, productRate, productRatings, productImg, productDesc, Category, brands)
         VALUES 
-        ('$name', '$price', '$rating', '$imgName', '$description')";
+        ('$name', '$price', '$rating', '$imgName', '$description', $cat_id, '$brands')";
     } else {
+
         // UPDATE
         $id = $_POST['id'];
-        $imgQuery = $imgName != "" ? ", productImg='$imgName'" : "";
-
 
         $sql = "UPDATE products SET
             productname='$name',
             productRate='$price',
             productRatings='$rating',
-            productDesc='$description'
-            $imgQuery
-            WHERE productID=$id";
+            productDesc='$description',
+            Category=$cat_id,
+            brands='$brands'";
+
+        if (!empty($imgName)) {
+            $sql .= ", productImg='$imgName'";
+        }
+
+        $sql .= " WHERE productID=$id";
     }
 
-    mysqli_query($conn, $sql) or die(mysqli_error($conn));
-    header("Location: admin.php");
+    // Execute once
+    if (mysqli_query($conn, $sql)) {
+
+        header("Location: admin.php?insert_product");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
 
 
@@ -45,7 +63,7 @@ if (isset($_POST['save'])) {
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     mysqli_query($conn, "DELETE FROM products WHERE productID=$id");
-    header("Location: admin.php");
+    header("Location: admin.php?insert_product");
 }
 
 /* EDIT PRODUCTS*/
@@ -111,7 +129,7 @@ if (isset($_GET['delete_cat'])) {
                     <li><a href="view_products.php">View Brands</a></li>
                 </ul>
             </li>
-            <li><a href="../user/orders.php">All Orders</a></li>
+            <li><a href="admin.php?orders">All Orders</a></li>
             <li><a href="payments.php">All Payments</a></li>
             <li><a href="admin.php?users">List Users</a></li>
             <li><a href="logout.php" class="logout">Logout</a></li>
@@ -142,6 +160,9 @@ if (isset($_GET['delete_cat'])) {
             }
             if (isset($_GET['users'])) {
                 include('list_users.php');
+            }
+            if (isset($_GET['orders'])) {
+                include('orders.php');
             }
     ?>
 

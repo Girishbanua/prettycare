@@ -137,11 +137,11 @@
 
             <h1>Order Placed Successfully!</h1>
             <p>Thank you for your purchase. Your order has been confirmed.</p>
+            <a href="invoice.php?order_id=123" target="_blank" class="btn primary ">Download Invoice</a>
 
             <div class="actions">
                 <a href="products.php" class="btn secondary">Continue Shopping</a>
-                <a href="../user/orders.php" class="btn primary">View Orders</a>
-                <a href="invoice.php?order_id=123">Download Invoice</a>
+                <a href="../user/orders.php" class="btn secondary">View Orders</a>
             </div>
 
         </div>

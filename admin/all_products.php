@@ -7,6 +7,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Rating</th>
+      <th>Category ID</th>
       <th>Description</th>
       <th>Actions</th>
     </tr>

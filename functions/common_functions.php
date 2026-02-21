@@ -14,6 +14,7 @@ function getProducts()
     <td>{$row['productname']}</td>
     <td>₹{$row['productRate']}</td>
     <td>{$row['productRatings']}/5</td>
+    <td>{$row['Category']}</td>
     <td>{$row['productDesc']}</td>
     <td>
       <a class='btn edt' href='admin.php?insert_product&edit={$row['productID']}'>Edit</a>
