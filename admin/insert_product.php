@@ -1,6 +1,5 @@
 <div class="insertProducts">
     <h2>Insert Products</h2>
-
     <form method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $editData['productID'] ?? '' ?>">
 

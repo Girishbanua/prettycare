@@ -12,6 +12,8 @@ body {
 }
 main {
   display: flex;
+  gap: 30px;
+  height: 100vh;
 }
 .alert {
   padding: 10px;
@@ -63,8 +65,7 @@ h2 {
 aside {
   background: #f37474;
   padding: 20px;
-  width: 300px;
-  height: 100vh;
+  max-width: 350px;
   border-radius: 20px;
   box-shadow: 5px 5px 10px #333;
   position: sticky;
@@ -73,8 +74,16 @@ aside {
 aside h2 {
   font-size: 30px;
 }
+aside section {
+  margin-bottom: 30px;
+}
 aside h1 {
-  font-size: 50px;
+  font-family: "Play-fair Display";
+  background: #bc3a3a8e;
+  font-size: 2rem;
+  font-weight: 400;
+  border-radius: 10px;
+  padding: 10px;
   color: #fff;
 }
 aside h1:hover {
@@ -89,7 +98,9 @@ aside a {
 aside a:hover {
   color: yellow;
 }
-
+.searchBar {
+  display: none;
+}
 /* Cart link */
 .cart-link {
   display: inline-block;
@@ -107,12 +118,9 @@ aside a:hover {
 .products-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   gap: 30px;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 20px; */
+  overflow: auto;
 }
 
 /* Product card */
@@ -185,3 +193,19 @@ aside a:hover {
   background: #f1f1f1;
   padding: 10px;
 } */
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+  aside {
+    display: none;
+    gap: 30px;
+  }
+  aside h1 {
+    font-size: 1.4rem;
+  }
+  .searchBar {
+    display: flex;
+  }
+}

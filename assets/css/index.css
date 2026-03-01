@@ -27,7 +27,7 @@ nav {
 }
 
 nav h1 {
-  font-family: "French Script MT";
+  font-family: "French Script MT", "Brush Script MT", cursive;
 }
 h1 {
   font-size: 30px;
@@ -70,7 +70,6 @@ h1,
   display: flex;
   align-items: center;
   justify-content: end;
-  animation: fadeIn 0.7s ease-in-out;
 }
 .hero-text {
   width: 500px;
@@ -83,11 +82,10 @@ h1,
   padding: 10px;
   border-radius: 10px;
   margin-top: 30px;
-  transition: ease-in-out 0.3s;
+  transition: ease-in-out 0.5s;
 }
 .btn:hover {
   background-color: #df5555;
-  box-shadow: 2px 2px 10px #ddd;
   color: #fff;
 }
 /* Hamburger hidden on desktop */
@@ -116,6 +114,7 @@ h1,
     padding: 20px 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
   }
   #menus ul {
     flex-direction: column;
@@ -150,9 +149,13 @@ h1,
     text-align: center;
     background-position: center;
   }
-
   .hero-text {
     width: 100%;
+    background: #ffffff17;
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 9px #8d4b4b;
   }
 
   .hero-text h2 {

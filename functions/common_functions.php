@@ -15,7 +15,7 @@ function getProducts()
     <td>₹{$row['productRate']}</td>
     <td>{$row['productRatings']}/5</td>
     <td>{$row['Category']}</td>
-    <td>{$row['productDesc']}</td>
+    <td style='width: 300px;'>{$row['productDesc']}</td>
     <td>
       <a class='btn edt' href='admin.php?insert_product&edit={$row['productID']}'>Edit</a>
       <a class='btn dlt' href='admin.php?insert_product&delete={$row['productID']}' onclick='return confirm(\"Delete?\")'>Delete</a>

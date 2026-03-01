@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 :root {
   --primary: #e24a6b;
@@ -11,6 +10,7 @@
 }
 /* Page background */
 body {
+  font-family: "Montserrat";
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@ body {
 .auth-container h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #4e4e4e;
   text-transform: capitalize;
 }
 
@@ -84,6 +84,7 @@ body {
   text-align: center;
   margin-top: 15px;
   font-size: 14px;
+  color: #333;
 }
 
 .auth-container a {
@@ -93,4 +94,36 @@ body {
 
 .auth-container a:hover {
   text-decoration: underline;
+}
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  .auth-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .auth-container h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .auth-container input {
+    padding: 14px;
+    font-size: 16px; /* better for mobile typing */
+  }
+
+  .auth-container button {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .auth-container p {
+    font-size: 13px;
+  }
 }

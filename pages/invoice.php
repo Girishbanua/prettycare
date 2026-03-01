@@ -20,11 +20,7 @@ class PDF extends FPDF
     function Header()
     {
         // Logo
-        // $this->Image('./images/logo.png', 10, 6, 30);
-
-        // Store Name
-        $this->SetFont('Arial', 'B', 18);
-        $this->Cell(0, 10, 'Blush', 0, 1, 'C');
+        $this->Image('../images/logo.png', 10, 6, 30);
 
         $this->SetFont('Arial', '', 10);
         $this->Cell(0, 5, 'Beauty Products Store', 0, 1, 'C');
